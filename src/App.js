@@ -7,8 +7,8 @@ import AuthForm from "./components/AuthForm"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import HowTo from "./components/HowTo"
-import ClubList from "./components/ClubList" // Import ClubList component
-import ClubDetails from "./components/ClubDetails" // Import ClubDetails component
+import ClubList from "./components/ClubList" 
+import ClubDetails from "./components/ClubDetails" 
 import AddPlayer from "./components/AddPlayer"
 import AddClub from "./components/AddClub"
 import { useLogin } from "./LoginContext"
@@ -16,7 +16,7 @@ import { useLogin } from "./LoginContext"
 function App() {
   const [leagueData, setLeagueData] = useState([])
   const [currentFixture, setCurrentFixture] = useState(0)
-  const [selectedClub, setSelectedClub] = useState(null) // Track selected club
+  const [selectedClub, setSelectedClub] = useState(null) 
   const { isAuthenticated, logout } = useLogin()
 
   const fetchLeagueData = async () => {
@@ -75,11 +75,7 @@ function App() {
             element={
               <div className="container my-5">
                 <h1>Add Assets</h1>
-
-                {/* Add Club Form */}
                 <AddClub />
-
-                {/* Add Player Form */}
                 <AddPlayer />
               </div>
             }

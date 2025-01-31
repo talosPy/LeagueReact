@@ -1,45 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; // Ensure the import is correct
+import { jwtDecode } from "jwt-decode"; 
 
 function Navbar() {
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState(""); // For storing the username
-  const [isAdmin, setIsAdmin] = useState(false); // For storing the isAdmin status
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [username, setUsername] = useState(""); 
+  const [isAdmin, setIsAdmin] = useState(false); 
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
-    const storedUsername = localStorage.getItem("username"); // Get username
-    const storedIsAdmin = localStorage.getItem("isAdmin"); // Get isAdmin (as string)
+    const storedUsername = localStorage.getItem("username"); 
+    const storedIsAdmin = localStorage.getItem("isAdmin"); 
 
     if (accessToken) {
-      const decoded = jwtDecode(accessToken); // Decode the JWT token if needed
+      const decoded = jwtDecode(accessToken); 
 
-      // If username and isAdmin are in localStorage, use those
+      
       setUsername(storedUsername);
-      setIsAdmin(storedIsAdmin === "true"); // Convert string "true" to boolean
+      setIsAdmin(storedIsAdmin === "true"); 
 
-      setUser(decoded); // If the token is valid, store user data in the state
+      setUser(decoded); 
     }
   }, []);
 
   const handleLogout = () => {
-    // Remove the access token and refresh token from localStorage
+    
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("username");
     localStorage.removeItem("isAdmin");
 
-    // Clear the user state
+    
     setUser(null);
     setUsername("");
     setIsAdmin(false);
 
-    // Use a small delay before navigating to the login page to ensure the state is cleared
+    
     setTimeout(() => {
-      navigate("/auth"); // This will navigate to the login page
-    }, 200); // Optional delay, you can adjust the time if needed
+      navigate("/auth"); 
+    }, 200); 
   };
 
   return (

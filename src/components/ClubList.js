@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function ClubList({ onSelectClub }) {
   const [clubs, setClubs] = useState([]);
-  const [loading, setLoading] = useState(true);  // Add loading state
+  const [loading, setLoading] = useState(true);  
   const [error, setError] = useState(null);
   const access = localStorage.getItem('access_token');
 
@@ -18,15 +18,15 @@ function ClubList({ onSelectClub }) {
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch clubs');
+          throw new Error('Log-in to view Clubs');
         }
 
         const data = await response.json();
         setClubs(data);
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       } catch (err) {
-        setError(err.message);  // Set error if any occurs
-        setLoading(false);  // Stop loading even if there's an error
+        setError(err.message);  
+        setLoading(false);  
       }
     };
 
@@ -34,11 +34,11 @@ function ClubList({ onSelectClub }) {
   }, [access]);
 
   if (loading) {
-    return <div>Loading...</div>;  // Show loading message
+    return <div>Loading...</div>;  
   }
 
   if (error) {
-    return <div className="alert alert-danger">{error}</div>;  // Show error message
+    return <div className="alert alert-danger">{error}</div>;  
   }
 
   return (

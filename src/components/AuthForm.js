@@ -2,9 +2,9 @@ import React, { useState } from "react"
 
 function AuthForm() {
   const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("") // Used for registration
+  const [email, setEmail] = useState("") 
   const [password, setPassword] = useState("")
-  const [message, setMessage] = useState("") // Display success/error messages
+  const [message, setMessage] = useState("") 
   
   async function handleLogin(e) {
     e.preventDefault()
@@ -22,21 +22,21 @@ function AuthForm() {
       )
 
       const data = await response.json()
-      console.log("API response data:", data) // Log the response
+      console.log("API response data:", data) 
 
       if (response.ok) {
-        const { access, refresh, username, isAdmin } = data // Use lowercase "username"
+        const { access, refresh, username, isAdmin } = data 
         console.log(data)
         // Store in localStorage
         localStorage.setItem("access_token", access)
         localStorage.setItem("refresh_token", refresh)
         console.log(username)
-        localStorage.setItem("username", username) // Store lowercase "username"
-        localStorage.setItem("isAdmin", isAdmin) // Store "isAdmin"
+        localStorage.setItem("username", username) 
+        localStorage.setItem("isAdmin", isAdmin) 
 
         setMessage("Login successful! Redirecting...")
         setTimeout(() => {
-          window.location.href = "/" // Redirect after login
+          window.location.href = "/" 
         }, 1000)
       } else {
         setMessage(data.detail || "An error occurred. Please try again.")

@@ -4,10 +4,9 @@ import LeagueTable from "./LeagueTable"
 
 function ControlRoom({ isAuthenticated, setCurrentFixture, currentFixture }) {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false) // Added loading state for handling async process
-  const [leagueTable, setLeagueTable] = useState([]) // Added state for the league table
+  const [loading, setLoading] = useState(false) 
+  const [leagueTable, setLeagueTable] = useState([]) 
 
-  // Function to automate matches
   function automateMatches() {
     fetch("https://leagueproject.onrender.com/matches/automate/", {
       method: "POST",
@@ -23,7 +22,6 @@ function ControlRoom({ isAuthenticated, setCurrentFixture, currentFixture }) {
       .catch((error) => alert(error.message))
   }
 
-  // Function to reset the league table
   function resetLeagueTable() {
     fetch("https://leagueproject.onrender.com/matches/reset/", {
       method: "POST",
@@ -34,41 +32,38 @@ function ControlRoom({ isAuthenticated, setCurrentFixture, currentFixture }) {
     })
       .then((response) => {
         if (!response.ok) throw new Error("Failed to reset league table.")
-        setLeagueTable([]) // Set leagueTable to an empty array after reset
+        setLeagueTable([]) 
 
         alert("League table reset successfully!")
         navigate("/")
-        setCurrentFixture(-1) // Fetch the updated league table after reset
+        setCurrentFixture(-1) 
       })
       .catch((error) => alert(error.message))
   }
 
-  // Function to fetch the league table data
   function fetchLeagueTable() {
     fetch("https://leagueproject.onrender.com/matches/league/", {
-      // Updated URL here
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
     })
       .then((response) => response.json())
-      .then((data) => setLeagueTable(data)) // Update the league table state
+      .then((data) => setLeagueTable(data)) 
       .catch((error) => console.error("Failed to fetch league table", error))
   }
 
-  // Fetch the league table on initial load
   useEffect(() => {
     if (isAuthenticated) {
       fetchLeagueTable()
     }
   }, [isAuthenticated])
 
-  // Function to play a fixture
+  
   function playFixture(fixtureNumber) {
-    console.log("Playing fixture: ", fixtureNumber) // Debugging line
+    console.log("Playing fixture: ", fixtureNumber) 
 
-    setLoading(true) // Set loading state to true while making the request
+    setLoading(true) 
 
     fetch(
       `https://leagueproject.onrender.com/matches/play-fixture/${fixtureNumber}/`,
@@ -89,7 +84,7 @@ function ControlRoom({ isAuthenticated, setCurrentFixture, currentFixture }) {
       })
       .catch((error) => alert(error.message))
       .finally(() => {
-        setLoading(false) // Reset loading state after request is done
+        setLoading(false) 
       })
   }
 
@@ -104,13 +99,13 @@ function ControlRoom({ isAuthenticated, setCurrentFixture, currentFixture }) {
             Reset League Table
           </button>
 
-          {/* Play Fixture Buttons */}
+          
           <div className="d-flex justify-content-center">
             {Array.from({ length: 8 }).map((_, index) => (
               <button
                 key={index}
                 className="btn btn-success m-2"
-                onClick={() => playFixture(index + 1)} // Correct fixture number passed here
+                onClick={() => playFixture(index + 1)} 
                 disabled={loading}
               >
                 {loading ? "Loading..." : `Fixture ${index + 1}`}
